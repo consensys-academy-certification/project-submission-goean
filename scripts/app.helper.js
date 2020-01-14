@@ -42,45 +42,53 @@ let App = {
     // The init() function will be called after the Web3 object is set in the test file
     // This function should update App.web3, App.networkId and App.contract
     async init() {
-
+        App.web3 = new Web3(web3.givenProvider);
+        App.networkId = await web3.eth.net.getId();
+        App.contract = await ProjectSubmission.deployed();
     },
 
     // This function should get the account made available by web3 and update App.account
     async getAccount(){
-
+        var accounts = await App.web3.eth.getAccounts();
+        App.account = accounts[0];
     },
 
     // Read the owner state from the contract and update App.contractOwner
     // Return the owner address
     async readOwnerAddress(){
-
+        App.contractOwner = await App.contract.owner();
+        return App.contractOwner;
     },
 
     // Read the owner balance from the contract
     // Return the owner balance
     async readOwnerBalance(){
-
+        var oBalance = await App.contract.ownerBalance();
+        return oBalance;
     },
 
     // Read the state of a provided University account
-    // This function takes one address parameter called account    
+    // This function takes one address parameter called account
     // Return the state object 
     async readUniversityState(account){
-
+        var uState = await App.contract.universities(account);
+        return uState;
     },
 
     // Register a university when this function is called
     // This function takes one address parameter called account
     // Return the transaction object 
     async registerUniversity(account){
-
+        var regUni = await App.contract.registerUniversity(account, {from: web3.eth.defaultAccount});
+        return regUni;
     },
 
     // Disable the university at the provided address when this function is called
     // This function takes one address parameter called account
     // Return the transaction object
     async disableUniversity(account){
-
+        var disUni = await App.contract.disableUniversity(account, {from: web3.eth.defaultAccount});
+        return disUni;
     },
 
     // Submit a new project when this function is called

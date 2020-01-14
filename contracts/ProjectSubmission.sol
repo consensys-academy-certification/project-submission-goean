@@ -1,19 +1,20 @@
-pragma... // Step 1
+pragma solidity ^0.5.0;
 
 contract ProjectSubmission { // Step 1
 
-    ...owner... // Step 1 (state variable)
+    address payable public owner; // Step 1 (state variable)
     // ...ownerBalance... // Step 4 (state variable)
     modifier onlyOwner() { // Step 1
-      ...
+      require(msg.sender == owner, 'The sender is not the owner');
+      _;
     }
-    
+
     struct University { // Step 1
-        ...available...
-        ...balance...
+        uint balance;
+        bool available;
     }
-    ...universities... // Step 1 (state variable)
-    
+    mapping (address => University) public univesities; // Step 1 (state variable)
+
     // enum ProjectStatus { ... } // Step 2
     // struct Project { // Step 2
     //     ...author...
@@ -22,35 +23,45 @@ contract ProjectSubmission { // Step 1
     //     ...balance...
     // }
     // ...projects... // Step 2 (state variable)
-    
-    function registerUniversity... { // Step 1
-      ...
+
+    constructor () public {
+      owner = msg.sender;
     }
-    
-    function disableUniversity... { // Step 1
-      ...
+
+    function registerUniversity(address _account)
+      public
+      onlyOwner
+    { // Step 1
+      univesities[_account].available = true;
     }
-    
+
+    function disableUniversity(address _account)
+      public
+      onlyOwner
+    { // Step 1
+      univesities[_account].available = false;
+    }
+
     // function submitProject... { // Step 2 and 4
     //   ...
     // }
-    
+
     // function disableProject... { // Step 3
     //   ...
     // }
-    
+
     // function reviewProject... { // Step 3
     //   ...
     // }
-    
+
     // function donate... { // Step 4
     //   ...
     // }
-    
+
     // function withdraw... { // Step 5
     //   ...
     // }
-    
+
     // function withdraw... {  // Step 5 (Overloading Function)
     //   ...
     // }

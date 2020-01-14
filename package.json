@@ -21,6 +21,7 @@
   "homepage": "https://github.com/consensys-academy-certification/project-submission#readme",
   "dependencies": {
     "mocha": "^6.2.2",
-    "web3": "^1.2.2"
-  }
+    "web3": "^1.2.4"
+  },
+  "devDependencies": {}
 }
