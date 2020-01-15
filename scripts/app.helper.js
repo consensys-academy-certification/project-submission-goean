@@ -96,7 +96,11 @@ let App = {
     //   - a projectHash, an address (universityAddress), and a number (amount to send with the transaction)   
     // Return the transaction object 
     async submitProject(projectHash, universityAddress, amount){
-
+        var val = App.web3.utils.toWei(App.web3.utils.toBN(amount));
+        var retVal = await App.contract.submitProject(projectHash
+                    , universityAddress
+                    , { from: web3.eth.defaultAccount, value: val });
+        return retVal
     },
 
     // Review a project when this function is called
@@ -104,7 +108,8 @@ let App = {
     //   - a projectHash and a number (status)
     // Return the transaction object
     async reviewProject(projectHash, status){
-
+        var retVal = await App.contract.reviewProject(projectHash, status)
+        return retVal
     },
 
     // Read a projects' state when this function is called
@@ -112,7 +117,8 @@ let App = {
     //   - a projectHash
     // Return the transaction object
     async readProjectState(projectHash){
-
+        var retVal = await App.contract.projects(projectHash)
+        return retVal
     },
 
     // Make a donation when this function is called

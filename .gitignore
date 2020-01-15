@@ -3,4 +3,4 @@ package-lock.json
 package.json
 build/contracts/Migrations.json
 build/contracts/ProjectSubmission.json
-
+bin
