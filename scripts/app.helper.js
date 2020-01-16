@@ -99,7 +99,7 @@ let App = {
         var val = App.web3.utils.toWei(App.web3.utils.toBN(amount));
         var retVal = await App.contract.submitProject(projectHash
                     , universityAddress
-                    , { from: web3.eth.defaultAccount, value: val });
+                    , {from: web3.eth.defaultAccount, value: val});
         return retVal
     },
 
@@ -126,13 +126,16 @@ let App = {
     //   - a projectHash and a number (amount)
     // Return the transaction object
     async donate(projectHash, amount){
-
+        var strAmount = amount.toString();
+        var retVal = await App.contract.donate(projectHash, {from: web3.eth.defaultAccount, strAmount})
+        return retVal
     },
 
     // Allow a university or the contract owner to withdraw their funds when this function is called
     // Return the transaction object
     async withdraw(){
-
+        var retVal = await App.contract.withdraw({from: web3.eth.defaultAccount})
+        return retVal
     },
 
     // Allow a project author to withdraw their funds when this function is called
@@ -141,7 +144,8 @@ let App = {
     // Use the following format to call this function: this.contract.methods['withdraw(bytes32)'](...)
     // Return the transaction object
     async authorWithdraw(projectHash){
-
+        var retVal = await App.contract.methods['withdraw(bytes32)'](projectHash, {from: web3.eth.defaultAccount})
+        return retVal
     }
 } 
 
